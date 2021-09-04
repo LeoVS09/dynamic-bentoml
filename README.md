@@ -3,6 +3,7 @@
 Self containing [BentoML](https://github.com/bentoml/BentoML) image, which can load model server on start.
 
 * [Github repository](https://github.com/LeoVS09/dynamic-bentoml)
+* [DockerHub repository](https://hub.docker.com/r/leovs09/dynamic-bentoml)
 
 ## What is BentoML?
 
@@ -108,6 +109,8 @@ services:
 
 ## Usage
 
+### Preapare your image
+
 Firstly prepare, pack and push your model to [Yatai Service](https://hub.docker.com/r/bentoml/yatai-service).
 
 * To prepare and pack folow [Getting Started guide from BentoML](https://docs.bentoml.org/en/latest/quickstart.html)
@@ -125,6 +128,33 @@ bento_svc.save(yatai_url="127.0.0.1:50051")
 # if running in example docker-compose
 bento_svc.save(yatai_url="model-registry-manager:50051") 
 ```
+
+### Start docker container
+
+Start docker container service directly.
+
+```bash
+> docker run \
+  -v ~/bentoml:/bentoml \
+  -p 5000:5000 \
+  -e MODEL_NAME=IrisClassifier:latest \
+  -e YATAI_URL=127.0.0.1:50051 \
+  leovs09/dynamic-bentoml:latest
+```
+
+open <http://localhost:5000/> to see Swagger API page.
+
+Send request to service
+
+```bash
+> curl -i \
+  --header "Content-Type: application/json" \
+  --request POST \
+  --data '[[5.1, 3.5, 1.4, 0.2]]' \
+  http://localhost:5000/predict
+```
+
+## Configuration
 
 Service configuration made through enviroment variables.
 
@@ -146,3 +176,17 @@ All listed in [cli docs](https://docs.bentoml.org/en/latest/cli.html#bentoml-ser
 ### Examples
 
 **TODO**
+
+
+## Development
+
+For build your own image based on this, for example for add more libraries required for you model simply create your Dockerfile and build it.
+
+Example Dockerfile
+
+```Dockerfile
+FROM leovs09/dynamic-bentoml:latest
+
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+```
