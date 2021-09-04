@@ -23,17 +23,17 @@ Extendable Docker image of ML model server. Service build for load model server 
 
 For what need Dynamic BentoML if simple BentoML already exists?
 
-I faced simple problem, my models too big to be saved as Docker image. My kubernetes cluster have limitations ephimeral storage, which not allow to load and start big Docker images. And also, save ML models as part of image simple solution, but not good practice, because it force to copy models in multiple places, what increase storage and bandwith costs.
+I faced simple problem, my **models too big to be saved as Docker image**. My kubernetes cluster have limitations for ephimeral storage, which not allow to load and start big Docker images. And also, save ML models as part of image is simple solution, but not good practice, because it force to copy models in multiple places, what increase storage and bandwith costs.
 
 BentoML great framework, but it not allow in simple way load and update model artifacts from local registry, when new version is available.
 
-For solve this problem, I created simple Docker image which receive `MODEL_NAME` and `YATAI_URL` enviroment variables and start BentoML server.
+**For solve this problem**, I created simple Docker image which receive `MODEL_NAME` and `YATAI_URL` enviroment variables and start BentoML server.
 
-In simple terms it will run `bentoml serve-gunicorn ${MODEL_NAME} --yatai-url=${YATAI_URL}`
+In simple terms it will just run `bentoml serve-gunicorn ${MODEL_NAME} --yatai-url=${YATAI_URL}`
 
-For decrease container size you can use `BENTOML_HOME` for set where model services will be saved before serving, and add persistence volume in this folder. It also allow to share and cache models before starts, what decrease startup time.
+For **decrease container size** you can use `BENTOML_HOME` for set where model services will be saved before serving, and add persistence volume in this folder. It also allow to share and cache models before starts, what decrease startup time.
 
-**NOTE:** Current solution not much decrease storage size, becuase you will need to use ML models registry and also packed model services registry ([Yatai Service](https://hub.docker.com/r/bentoml/yatai-service)). I hope someone will write general Artifact adapter which allow load new model on start.
+**Warning:** Current solution not much decrease overall storage size, becuase you will need to use ML models registry and also packed model services registry ([Yatai Service](https://hub.docker.com/r/bentoml/yatai-service)). I hope someone will write general artifact adapter for BentoML which allow load new models on start.
 
 ## Requrements
 
@@ -134,8 +134,8 @@ All listed in [cli docs](https://docs.bentoml.org/en/latest/cli.html#bentoml-ser
 
 #### Required variables
 
-* `MODEL_NAME` - Name and version of BentoML model which need load. Example: `MODEL_NAME=IrisClassifier:latest`
-* `YATAI_URL` - Url of Yatai Service, from where model will be loaded. Example: `YATAI_URL=127.0.0.1:50051`
+* `MODEL_NAME` - Name and version of [BentoML](https://github.com/bentoml/BentoML) model which need load. Example: `MODEL_NAME=IrisClassifier:latest`
+* `YATAI_URL` - Url of [Yatai Service](https://hub.docker.com/r/bentoml/yatai-service), from where model will be loaded. Example: `YATAI_URL=127.0.0.1:50051`
 
 #### Optional variables
 
