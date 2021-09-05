@@ -4,7 +4,7 @@
 
 default: build-and-push
 
-IMAGE_VERSION=0.13.1-py36
+IMAGE_VERSION=0.13.1-py38
 IMAGE_NAME=leovs09/dynamic-bentoml
 
 # ---------------------------------------------------------------------------------------------------------------------

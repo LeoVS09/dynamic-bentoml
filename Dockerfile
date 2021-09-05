@@ -1,4 +1,4 @@
-FROM bentoml/model-server:0.13.1-py36
+FROM bentoml/model-server:0.13.1-py38
 
 # Based on https://github.com/bentoml/BentoML/blob/master/bentoml/saved_bundle/templates.py
 
