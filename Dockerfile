@@ -4,18 +4,14 @@ FROM bentoml/model-server:0.13.1-py36
 
 ENV BENTOML_HOME=/home/bentoml/
 
-WORKDIR /home/app
+WORKDIR /work/app
 
-COPY start.sh ./
-RUN chmod +x ./start.sh
-
-ARG UID=1034
-ARG GID=1034
-RUN groupadd -g $GID -o bentoml && useradd -m -u $UID -g $GID -o -r bentoml
+COPY entrypoint.sh start.sh ./
 
 # Default port for BentoML Service
 EXPOSE 5000
 
-USER bentoml
+RUN chmod +x ./entrypoint.sh start.sh
 
+ENTRYPOINT ["./entrypoint.sh"]
 CMD ["./start.sh"]
