@@ -154,6 +154,50 @@ Send request to service
   http://localhost:5000/predict
 ```
 
+### Examples
+
+For build your own image based on this, for example for add more libraries required for you model simply create your Dockerfile and build it.
+
+Example Dockerfile
+
+```Dockerfile
+FROM leovs09/dynamic-bentoml:latest
+
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+```
+
+#### Example usage in docker compose
+
+```yaml
+# docker-compose.yaml
+
+version: "3.9"
+
+services:
+
+   # add yatai service from example before
+   # ...
+
+   ml-model-service:
+      image: leovs09/dynamic-bentoml:latest # or your image based on that
+      ports:
+         - 8904:8904
+      volumes:
+         - ./data/bentoml/:/bentoml/.
+      environment:
+         - BENTOML_PORT=8904
+         - BENTOML_GUNICORN_WORKERS=1
+         - BENTOML_HOME=/bentoml
+         - YATAI_URL=model-registry-manager:50051
+         - MODEL_NAME=IrisClassifier:latest
+      depends_on: 
+         - model-registry-manager
+      links:
+         - model-registry-manager
+
+```
+
 ## Configuration
 
 Service configuration made through enviroment variables.
@@ -172,21 +216,3 @@ All listed in [cli docs](https://docs.bentoml.org/en/latest/cli.html#bentoml-ser
 * `BENTOML_HOME` - Path where models will be saved before serving, can be used for target to persistence volume folder, default to `~/bentoml`. Example: `BENTOML_HOME=/bentoml`
 * `BENTOML_PORT` - The port to listen on for the REST api server, default is `5000`. Example: `BENTOML_PORT=8904`
 * BENTOML_GUNICORN_WORKERS - Number of workers will start for the gunicorn server. Example: `BENTOML_GUNICORN_WORKERS=1`
-
-### Examples
-
-**TODO**
-
-
-## Development
-
-For build your own image based on this, for example for add more libraries required for you model simply create your Dockerfile and build it.
-
-Example Dockerfile
-
-```Dockerfile
-FROM leovs09/dynamic-bentoml:latest
-
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
-```
