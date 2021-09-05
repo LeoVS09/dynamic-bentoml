@@ -54,7 +54,7 @@ version: "3.9"
 
 services:
 
-    model-registry-manager:
+   yatai-service:
       image: bentoml/yatai-service:0.13.1
       ports:
          - 50051:50051 # GRPC port
@@ -189,12 +189,12 @@ services:
          - BENTOML_PORT=8904
          - BENTOML_GUNICORN_WORKERS=1
          - BENTOML_HOME=/bentoml
-         - YATAI_URL=model-registry-manager:50051
+         - YATAI_URL=yatai-service:50051
          - MODEL_NAME=IrisClassifier:latest
       depends_on: 
-         - model-registry-manager
+         - yatai-service
       links:
-         - model-registry-manager
+         - yatai-service
 
 ```
 
