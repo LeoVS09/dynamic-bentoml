@@ -20,6 +20,12 @@ BentoML bridges the gap between Data Science and DevOps. By providing a standard
 
 Extendable Docker image of ML model server. Service build for load model server on start, persist it, and start server.
 
+## Tags 
+
+Image tags of this repository mostly follow images of [BentoML project](https://hub.docker.com/r/bentoml/model-server/tags?page=1&ordering=last_updated). If some image from not exists, you can build and push by self, follow development guide.
+
+* Simple CPU images examples: `latest`, `0.13.1-py38`, `0.13.1-py36`
+
 ### Why Dynamic BentoML?
 
 For what need Dynamic BentoML if simple BentoML already exists?
@@ -216,3 +222,12 @@ All listed in [cli docs](https://docs.bentoml.org/en/latest/cli.html#bentoml-ser
 * `BENTOML_HOME` - Path where models will be saved before serving, can be used for target to persistence volume folder, default to `~/bentoml`. Example: `BENTOML_HOME=/bentoml`
 * `BENTOML_PORT` - The port to listen on for the REST api server, default is `5000`. Example: `BENTOML_PORT=8904`
 * BENTOML_GUNICORN_WORKERS - Number of workers will start for the gunicorn server. Example: `BENTOML_GUNICORN_WORKERS=1`
+
+## Development
+
+If you want extend or build your own image, folow next steps:
+
+* Clone repository `git clone https://github.com/LeoVS09/dynamic-bentoml.git`
+* Make your changes
+* Update `Makefile` with new image name and tag
+* Run `make` - it will build new docker image and push to docker hub
