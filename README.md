@@ -25,6 +25,7 @@ Extendable Docker image of ML model server. Service build for load model server 
 Image tags of this repository mostly follow images of [BentoML project](https://hub.docker.com/r/bentoml/model-server/tags?page=1&ordering=last_updated). If some image from not exists, you can build and push by self, follow development guide.
 
 * Simple CPU images examples: `latest`, `0.13.1-py38`, `0.13.1-py36`
+* Thanks to [@withsmilo](https://github.com/withsmilo/BentoML/tree/seperate_predict_with_healthz) for fix health check [issue #1768](https://github.com/bentoml/BentoML/issues/1768) you can use image: `0.13.1-py38-health`
 
 ### Why Dynamic BentoML?
 

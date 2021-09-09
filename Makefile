@@ -4,7 +4,7 @@
 
 default: build-and-push
 
-IMAGE_VERSION=0.13.1-py38
+IMAGE_VERSION=0.13.1-py38-health
 IMAGE_NAME=leovs09/dynamic-bentoml
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -22,3 +22,5 @@ push:
 push-latest:
 	docker tag ${IMAGE_NAME}:${IMAGE_VERSION} ${IMAGE_NAME}:latest
 	docker push ${IMAGE_NAME}:latest
+
+build-and-push-only: build push

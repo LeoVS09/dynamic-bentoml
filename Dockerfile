@@ -4,6 +4,8 @@ FROM bentoml/model-server:0.13.1-py38
 
 ENV BENTOML_HOME=/home/bentoml/
 
+RUN pip install git+https://github.com/withsmilo/BentoML.git@seperate_predict_with_healthz
+
 WORKDIR /work/app
 
 COPY entrypoint.sh start.sh ./
