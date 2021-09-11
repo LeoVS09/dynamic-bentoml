@@ -20,7 +20,7 @@ BentoML bridges the gap between Data Science and DevOps. By providing a standard
 
 Extendable Docker image of ML model server. Service build for load model server on start, persist it, and start server.
 
-## Tags 
+## Tags
 
 Image tags of this repository mostly follow images of [BentoML project](https://hub.docker.com/r/bentoml/model-server/tags?page=1&ordering=last_updated). If some image from not exists, you can build and push by self, follow development guide.
 
@@ -144,7 +144,7 @@ Start docker container service directly.
 > docker run \
   -v ~/bentoml:/bentoml \
   -p 5000:5000 \
-  -e MODEL_NAME=IrisClassifier:latest \
+  -e SERVICE_NAME=IrisClassifier:latest \
   -e YATAI_URL=127.0.0.1:50051 \
   leovs09/dynamic-bentoml:latest
 ```
@@ -197,7 +197,7 @@ services:
          - BENTOML_GUNICORN_WORKERS=1
          - BENTOML_HOME=/bentoml
          - YATAI_URL=yatai-service:50051
-         - MODEL_NAME=IrisClassifier:latest
+         - SERVICE_NAME=IrisClassifier:latest
       depends_on: 
          - yatai-service
       links:
@@ -215,7 +215,7 @@ All listed in [cli docs](https://docs.bentoml.org/en/latest/cli.html#bentoml-ser
 
 #### Required variables
 
-* `MODEL_NAME` - Name and version of [BentoML](https://github.com/bentoml/BentoML) model which need load. Example: `MODEL_NAME=IrisClassifier:latest`
+* `SERVICE_NAME` - Name and version of [BentoML](https://github.com/bentoml/BentoML) service which need load. Example: `SERVICE_NAME=IrisClassifier:latest`
 * `YATAI_URL` - Url of [Yatai Service](https://hub.docker.com/r/bentoml/yatai-service), from where model will be loaded. Example: `YATAI_URL=127.0.0.1:50051`
 
 #### Optional variables
